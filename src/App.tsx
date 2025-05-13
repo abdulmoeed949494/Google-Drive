@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './component/Navbar';
-import Home from './component/Sidebar/Home';
+import Navbar from './component/Navbar/Navbar';
 import Sidebar from './component/Sidebar';
+import Home from './component/Sidebar/Home';
 import MyDrive from './component/Sidebar/MyDrive';
 import Computers from './component/Sidebar/Computers';
 import SharedWithMe from './component/Sidebar/SharedWithMe';
@@ -13,20 +13,25 @@ import Trash from './component/Sidebar/Trash';
 import Storage from './component/Sidebar/Storage';
 import Login from './component/Auth/Login';
 import Signup from './component/Auth/Signup';
+import ProtectedRoute from './component/ProtectedRoute/Protected'; // Import ProtectedRoute
+import { ToastContainer } from 'react-toastify';
 
 const App = () => {
   return (
     <Router>
-      {/* Conditionally render Navbar and Sidebar */}
+      {/* Toast container added here */}
+      <ToastContainer position="top-center" autoClose={3000} />
+
       <Routes>
+        {/* Public Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         
-        {/* For all other routes, render Navbar, Sidebar, and Content */}
+        {/* Protected Routes */}
         <Route
           path="*"
           element={
-            <>
+            <ProtectedRoute>
               <Navbar />
               <div className="flex">
                 <Sidebar />
@@ -45,7 +50,7 @@ const App = () => {
                   </Routes>
                 </div>
               </div>
-            </>
+            </ProtectedRoute>
           }
         />
       </Routes>

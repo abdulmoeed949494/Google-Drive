@@ -1,19 +1,28 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigate = useNavigate()
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    localStorage.setItem('isLoggedIn', true);
+    toast('Login successful!');
+    navigate('/home')
   };
+  
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-lg">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
+      <div className="w-full max-w-sm sm:max-w-md p-6 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold text-center text-gray-700 mb-6">Sign In</h2>
 
         <form onSubmit={handleSubmit}>
+          {/* Email */}
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm text-gray-600">Email</label>
             <input
@@ -27,6 +36,7 @@ const Login = () => {
             />
           </div>
 
+          {/* Password */}
           <div className="mb-6">
             <label htmlFor="password" className="block text-sm text-gray-600">Password</label>
             <input
@@ -40,6 +50,7 @@ const Login = () => {
             />
           </div>
 
+          {/* Button */}
           <div className="mb-4">
             <button
               type="submit"
@@ -50,6 +61,7 @@ const Login = () => {
           </div>
         </form>
 
+        {/* Link to Signup */}
         <div className="text-center">
           <span className="text-sm text-gray-600">Don't have an account?</span>
           <a href="/signup" className="text-sm text-blue-600 hover:underline ml-1">
